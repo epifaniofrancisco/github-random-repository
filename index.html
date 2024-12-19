@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Github Random Repository</title>
     <link href="./src/css/output.css" rel="stylesheet">
 </head>
-<body>
-    <main class="bg-red-500">
-        <h1 class="text-red-500">Github Repository Finder</h1>
 
-        <form action="get" method="get">
-            <div class="repository-card">
-                <select>
-                    <option value="">Selecionar Linguagem</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="python">Python</option>
-                </select>
+<body class="w-full h-full bg-[#212529] flex justify-center items-center">
+    <main class="w-96 bg-white rounded-lg border bg-card text-card-foreground shadow-sm">
+        <div class="flex gap-2 justify-center items-center p-6">
+            <img src="./src/assets/images/github-logo.svg" alt="Github logo svg" class="w-6 h-full object-cover">
+            <h1 class="text-xl font-semibold leading-none tracking-tight">Github Repository Finder</h1>
+        </div>
+
+        <form action="get" method="get" class="p-6 pt-0 flex flex-col gap-4">
+            <select id="countries"
+                class="bg-gray-50 border border-gray-300 cursor-pointer text-gray-500 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5">
+                <option selected>Select a Language</option>
+            </select>
+
+            <div class="repo-result w-full bg-gray-200 h-32 text-base rounded-lg flex justify-center items-center">
+                Please select a language
             </div>
 
-            <button>Refresh</button>
+            <button
+                class="h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium bg-black text-white hover:bg-primary">Refresh</button>
         </form>
     </main>
 </body>
+
 </html>
