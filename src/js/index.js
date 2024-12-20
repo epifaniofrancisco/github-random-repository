@@ -1,6 +1,6 @@
-import { getRandomRepository } from "./getRandomRepository.js";
 import { loadLanguages } from "./loadLanguages.js";
 import { populateSelectElement } from "./populateSelectElement.js";
+import { handleButtonClick, handleSelectChange } from "./handleEvents.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const selectElement = document.getElementById("languages");
@@ -10,12 +10,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const languages = await loadLanguages();
     populateSelectElement(languages, selectElement);
 
-    selectElement.addEventListener("change", () => {
-        repoResult.textContent = "Loading, please wait";
-    });
-
-    buttonResults.addEventListener("click", () => {
-        
-        repoResult.textContent = "Error";
-    })
+    selectElement.addEventListener("change", () =>
+        handleSelectChange(selectElement, repoResult),
+    );
+    buttonResults.addEventListener("click", (event) =>
+        handleButtonClick(event, selectElement, repoResult),
+    );
 });
+
