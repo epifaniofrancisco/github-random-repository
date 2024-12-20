@@ -16,19 +16,21 @@
         </div>
 
         <form action="get" method="get" class="p-6 pt-0 flex flex-col gap-4">
-            <select id="countries"
+            <select id="languages"
                 class="bg-gray-50 border border-gray-300 cursor-pointer text-gray-500 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5">
                 <option selected>Select a Language</option>
             </select>
 
-            <div class="repo-result w-full bg-gray-200 h-32 text-base rounded-lg flex justify-center items-center">
+            <div id="repo-result" class="w-full bg-gray-200 h-32 text-base rounded-lg flex justify-center items-center">
                 Please select a language
             </div>
 
             <button
-                class="h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium bg-black text-white hover:bg-primary">Refresh</button>
+                class="h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium bg-black text-white hover:bg-[#212529]">Refresh</button>
         </form>
     </main>
+
+    <script type="module" src="./src/js/index.js"></script>
 </body>
 
 </html>
