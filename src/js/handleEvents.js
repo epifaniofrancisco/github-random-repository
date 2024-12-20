@@ -1,22 +1,27 @@
 import { fetchAndDisplayRepository } from "./fetchAndDisplayRepository.js";
 
-export const handleSelectChange = async (selectElement, repoResult) => {
+export const handleSelectChange = async (selectElement, repoResult, buttonResults) => {
     repoResult.textContent = "Loading, please wait";
     const selectedLanguage = selectElement.value;
     await fetchAndDisplayRepository(
         selectedLanguage,
         repoResult,
-        selectElement,
+        buttonResults,
     );
 };
 
-export const handleButtonClick = async (event, selectElement, repoResult) => {
+export const handleButtonClick = async (
+    event,
+    selectElement,
+    repoResult,
+    buttonResults,
+) => {
     event.preventDefault();
     repoResult.textContent = "Loading, please wait";
     const selectedLanguage = selectElement.value;
     await fetchAndDisplayRepository(
         selectedLanguage,
         repoResult,
-        selectElement,
+        buttonResults,
     );
 };

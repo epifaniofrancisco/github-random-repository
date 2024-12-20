@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     populateSelectElement(languages, selectElement);
 
     selectElement.addEventListener("change", () =>
-        handleSelectChange(selectElement, repoResult),
+        handleSelectChange(selectElement, repoResult, buttonResults),
     );
     buttonResults.addEventListener("click", (event) =>
-        handleButtonClick(event, selectElement, repoResult),
+        handleButtonClick(event, selectElement, repoResult, buttonResults),
     );
 });
 

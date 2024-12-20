@@ -1,11 +1,11 @@
-import {getRandomRepository} from "./getRandomRepository.js"
+import { getRandomRepository } from "./getRandomRepository.js";
 
 export const fetchAndDisplayRepository = async (
     selectedLanguage,
     repoResult,
     buttonResults,
 ) => {
-    if (selectedLanguage === "Select a Language") {
+    if (selectedLanguage === "selectalanguage") {
         repoResult.textContent = "Please select a language";
         return;
     }
@@ -13,11 +13,13 @@ export const fetchAndDisplayRepository = async (
     try {
         const repository = await getRandomRepository(selectedLanguage);
         repoResult.textContent = `Repository: ${repository.full_name}\nDescription: ${repository.description}\nURL: ${repository.html_url}`;
-        buttonResults.style.backgroundColor = "";
-        repoResult.style.backgroundColor = "";
+
+        repoResult.style.backgroundColor = "#e5e7eb";
+        buttonResults.style.backgroundColor = "#000";
     } catch (error) {
         repoResult.textContent = "Error fetching repository";
-        buttonResults.style.backgroundColor = "red";
-        repoResult.style.backgroundColor = "red";
+        repoResult.style.backgroundColor = "#fecaca";
+        buttonResults.style.backgroundColor = "#ef4444";
+        console.error(error);
     }
 };
