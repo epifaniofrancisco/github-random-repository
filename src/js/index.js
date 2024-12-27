@@ -3,18 +3,19 @@ import { populateSelectElement } from "./populateSelectElement.js";
 import { handleButtonClick, handleSelectChange } from "./handleEvents.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const selectElement = document.getElementById("languages");
-    const repoResult = document.getElementById("repo-result");
-    const buttonResults = document.getElementById("get-results");
+    const elements = {
+        selectElement: document.getElementById("languages"),
+        repositoryStatus: document.getElementById("fetch-status"),
+        fetchRepoButton: document.getElementById("fetch-repository"),
+    };
 
     const languages = await loadLanguages();
-    populateSelectElement(languages, selectElement);
+    populateSelectElement(languages, elements.selectElement);
 
-    selectElement.addEventListener("change", () =>
-        handleSelectChange(selectElement, repoResult, buttonResults),
+    elements.selectElement.addEventListener("change", () =>
+        handleSelectChange(elements),
     );
-    buttonResults.addEventListener("click", (event) =>
-        handleButtonClick(event, selectElement, repoResult, buttonResults),
+    elements.fetchRepoButton.addEventListener("click", (event) =>
+        handleButtonClick(event, elements),
     );
 });
-
