@@ -21,12 +21,34 @@
                 <option selected>Select a Language</option>
             </select>
 
-            <div id="repo-result" class="w-full bg-gray-200 h-32 text-base rounded-lg flex justify-center items-center">
+            <div id="fetch-status" class="w-full bg-gray-50 h-32 text-base rounded-lg flex justify-center items-center">
                 Please select a language
             </div>
 
-            <button
-            id="get-results"
+            <div class="w-full bg-gray-50 px-4 py-3 rounded-lg leading-none flex-col gap-2 display-repository hidden">
+                <h5 class="font-semibold"></h5>
+                <p class="leading-tight max-h-14 font-medium text-sm text-gray-600 text-ellipsis line-clamp-3"></p>
+                <div class="w-full h-6 flex justify-between items-center">
+                    <div class="repository-information">
+                        <img src="src/assets/images/circle.svg" alt="circle svg">
+                        <span id="repo-language"></span>
+                    </div>
+                    <div class="repository-information">
+                        <img src="src/assets/images/star-yellow.svg" alt="star svf">
+                        <span id="repo-stars"></span>
+                    </div>
+                    <div class="repository-information">
+                        <img src="src/assets/images/forks.svg" alt="forks svg">
+                        <span id="repo-forks"></span>
+                    </div>
+                    <div class="repository-information">
+                        <img src="src/assets/images/issues.svg" alt="issues svg">
+                        <span id="repo-issues"></span>
+                    </div>
+                </div
+            </div>
+
+            <button id="fetch-repository"
                 class="h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium bg-black text-white hover:bg-[#212529]">Refresh</button>
         </form>
     </main>
