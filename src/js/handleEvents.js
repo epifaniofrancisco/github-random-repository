@@ -3,7 +3,12 @@ import {
     displayRepository,
     displayRepositoryError,
 } from "./displayRepository.js";
-import { updateRepositoryStatus, hideRepositoryCard } from "./utils.js";
+import {
+    updateButtonStyle,
+    updateRepositoryStatus,
+    hideRepositoryCard,
+} from "./utils.js";
+import { updateRepositoryCard } from "./updateRepositoryCard.js";
 
 export const handleSelectChange = async (elements) => {
     updateRepositoryStatus(
@@ -40,4 +45,35 @@ export const handleButtonClick = async (event, elements) => {
     } catch (error) {
         displayRepositoryError(elements);
     }
+};
+
+export const handleNoLanguageSelected = (elements) => {
+    updateRepositoryStatus(
+        elements.repositoryStatus,
+        "Please select a language",
+        "flex",
+        "#e5e7eb",
+    );
+    updateButtonStyle(elements.fetchRepoButton, "flex", "#000");
+};
+
+export const handleRepositoryFetchSuccess = (
+    repository,
+    selectedLanguage,
+    elements,
+) => {
+    updateRepositoryStatus(elements.repositoryStatus, "", "none", "#e5e7eb");
+    updateRepositoryCard(repository, selectedLanguage);
+    updateButtonStyle(elements.fetchRepoButton, "inline-flex", "#000");
+};
+
+export const handleRepositoryFetchError = (elements) => {
+    updateRepositoryStatus(
+        elements.repositoryStatus,
+        "Error fetching repository",
+        "flex",
+        "#fecaca",
+    );
+    updateButtonStyle(elements.fetchRepoButton, "inline-flex", "#ef4444");
+    document.querySelector(".display-repository").style.display = "none";
 };
