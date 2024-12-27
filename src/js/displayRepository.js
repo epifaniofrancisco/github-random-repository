@@ -13,6 +13,6 @@ export const displayRepository = (repository, selectedLanguage, elements) => {
     handleRepositoryFetchSuccess(repository, selectedLanguage, elements);
 };
 
-export const displayRepositoryError = (elements) => {
-    handleRepositoryFetchError(elements);
+export const displayRepositoryError = (elements, errorMessage) => {
+    handleRepositoryFetchError(elements, errorMessage);
 };

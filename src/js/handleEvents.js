@@ -24,7 +24,7 @@ export const handleSelectChange = async (elements) => {
         const repository = await fetchRepository(selectedLanguage);
         displayRepository(repository, selectedLanguage, elements);
     } catch (error) {
-        displayRepositoryError(elements);
+        displayRepositoryError(elements, error.message);
     }
 };
 
@@ -43,7 +43,7 @@ export const handleButtonClick = async (event, elements) => {
         const repository = await fetchRepository(selectedLanguage);
         displayRepository(repository, selectedLanguage, elements);
     } catch (error) {
-        displayRepositoryError(elements);
+        displayRepositoryError(elements, error.message);
     }
 };
 
@@ -67,10 +67,10 @@ export const handleRepositoryFetchSuccess = (
     updateButtonStyle(elements.fetchRepoButton, "inline-flex", "#000");
 };
 
-export const handleRepositoryFetchError = (elements) => {
+export const handleRepositoryFetchError = (elements, errorMessage) => {
     updateRepositoryStatus(
         elements.repositoryStatus,
-        "Error fetching repository",
+        errorMessage,
         "flex",
         "#fecaca",
     );

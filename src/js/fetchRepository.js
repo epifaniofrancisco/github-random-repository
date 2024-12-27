@@ -9,7 +9,9 @@ export const fetchRepository = async (selectedLanguage) => {
         const repository = await getRandomRepository(selectedLanguage);
         return repository;
     } catch (error) {
-        console.error("Error fetching repository:", error);
-        throw error;
+        if (error.message === "No repositories found") {
+            throw new Error("No repositories found");
+        }
+        throw new Error("Error fetching repository");
     }
 };
