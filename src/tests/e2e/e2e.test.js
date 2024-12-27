@@ -30,7 +30,56 @@ test.describe("Github Random Repository", () => {
 
         await page.selectOption("#languages", "JavaScript");
 
-        const resultText = await page.textContent("#repo-result");
+        const resultText = await page.textContent("#fetch-status");
         expect(resultText).toBe("Loading, please wait");
     });
+
+    test("Language selection updates status and hides repository card", async ({
+        page,
+    }) => {
+        await page.selectOption("#languages", "JavaScript");
+        await expect(page.locator("#fetch-status")).toHaveText(
+            "Loading, please wait",
+        );
+        await expect(page.locator(".display-repository")).toBeHidden();
+        await page.waitForSelector(".display-repository");
+        await expect(page.locator(".display-repository")).toBeVisible();
+    });
+
+    test("Button click updates status and hides repository card", async ({
+        page,
+    }) => {
+        await page.selectOption("#languages", "JavaScript");
+        await page.click("#fetch-repository");
+        await expect(page.locator("#fetch-status")).toHaveText(
+            "Loading, please wait",
+        );
+        await expect(page.locator(".display-repository")).toBeHidden();
+        await page.waitForSelector(".display-repository");
+        await expect(page.locator(".display-repository")).toBeVisible();
+    });
+
+    test("Handles errors correctly", async ({ page }) => {
+        await page.selectOption("#languages", "");
+        await page.click("#fetch-repository");
+        await expect(page.locator("#fetch-status")).toHaveText(
+            "Error fetching repository",
+        );
+        await expect(page.locator(".display-repository")).toBeHidden();
+    });
+
+    test("should show loading message when changing language", async ({
+        page,
+    }) => {
+        await page.selectOption("#languages", "JavaScript");
+        await expect(page.locator("#fetch-status")).toHaveText(
+            "Loading, please wait",
+        );
+
+        await page.selectOption("#languages", "Python");
+        await expect(page.locator("#fetch-status")).toHaveText(
+            "Loading, please wait",
+        );
+    });
+
 });
