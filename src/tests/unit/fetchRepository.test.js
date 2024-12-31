@@ -2,8 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fetchRepository } from "../../js/fetchRepository.js";
 import {
     createApiResponse,
-    createMockRepository,
-} from "../utils/testUtils.js";
+} from "../utils/apiHelpers.js";
+import { createMockRepository } from "../utils/mockData.js"
 
 describe("fetchRepository", () => {
     const selectedLanguage = "JavaScript";
@@ -86,4 +86,3 @@ describe("fetchRepository", () => {
         });
     });
 });
-

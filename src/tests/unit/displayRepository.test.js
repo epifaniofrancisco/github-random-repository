@@ -3,7 +3,8 @@ import {
     displayRepository,
     displayRepositoryError,
 } from "../../js/displayRepository.js";
-import { createMockRepository } from "../utils/testUtils.js";
+import { createMockRepository } from "../utils/mockData.js";
+import { setupTestDOM } from "../utils/domSetup.js";
 
 const createTestElements = () => ({
     repositoryStatus: {
@@ -15,32 +16,12 @@ const createTestElements = () => ({
     },
 });
 
-const setupDOMForDisplayRepository = () => {
-    document.body.innerHTML = `
-        <div class="display-repository" style="display: none;">
-            <h5></h5>
-            <p></p>
-            <span id="repo-language"></span>
-            <span id="repo-stars"></span>
-            <span id="repo-forks"></span>
-            <span id="repo-issues"></span>
-        </div>
-        <div id="repositoryStatus"></div>
-        <button id="fetchRepoButton"></button>
-    `;
-
-    return {
-        repositoryStatus: document.querySelector("#repositoryStatus"),
-        fetchRepoButton: document.querySelector("#fetchRepoButton"),
-    };
-};
-
 describe("displayRepository", () => {
     let elements;
     let mockRepository;
 
     beforeEach(() => {
-        elements = setupDOMForDisplayRepository();
+        elements = setupTestDOM();
         mockRepository = createMockRepository();
     });
 
@@ -112,16 +93,14 @@ describe("displayRepository", () => {
         // Repository card hidden assertion
         const repoCard = document.querySelector(".display-repository");
         expect(repoCard.style.display).toBe("none");
-    })
+    });
 
     it("should handle empty error message", () => {
         const elements = createTestElements();
 
         displayRepositoryError(elements, "");
 
-        expect(elements.repositoryStatus.textContent).toBe(
-            "",
-        );
+        expect(elements.repositoryStatus.textContent).toBe("");
         expect(elements.repositoryStatus.style.backgroundColor).toBe("#fecaca");
     });
 });
