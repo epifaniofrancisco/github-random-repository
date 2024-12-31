@@ -3,6 +3,7 @@ import {
     displayRepository,
     displayRepositoryError,
 } from "../../js/displayRepository.js";
+import { createMockRepository } from "../utils/testUtils.js";
 
 const createTestElements = () => ({
     repositoryStatus: {
@@ -12,15 +13,6 @@ const createTestElements = () => ({
     fetchRepoButton: {
         style: { display: "", backgroundColor: "" },
     },
-});
-
-const createMockRepository = () => ({
-    full_name: "openai/gpt",
-    description: "A repository for GPT-related projects",
-    language: "JavaScript",
-    stargazers_count: 1234,
-    forks_count: 567,
-    open_issues_count: 8,
 });
 
 const setupDOMForDisplayRepository = () => {
