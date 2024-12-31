@@ -52,6 +52,6 @@ test("fetchRepository handles errors correctly", async () => {
     });
 
     await expect(fetchRepository("InvalidLanguage")).rejects.toThrow(
-        "HTTP error! status: 404",
+        "Error fetching repository",
     );
 });
