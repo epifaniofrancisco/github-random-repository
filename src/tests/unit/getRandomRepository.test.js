@@ -1,59 +1,71 @@
-import { beforeEach, describe, it, expect, vi } from "vitest";
-import { getRandomRepository } from '../../js/getRandomRepository';
+import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
+import { getRandomRepository } from "../../js/getRandomRepository";
+import { createApiResponse, mockFetch } from "../utils/apiHelpers";
+import { createMockRepositories } from "../utils/mockData";
 
-describe('getRandomRepository', () => {
+describe("getRandomRepository", () => {
+    let fetch;
+
     beforeEach(() => {
-        global.fetch = vi.fn();
+        fetch = mockFetch(vi);
     });
 
-    it('should return a random repository when the API call is successful', async () => {
-        const mockRepositories = [
-            { id: 1, name: 'repo1' },
-            { id: 2, name: 'repo2' },
-            { id: 3, name: 'repo3' },
-        ];
-        const mockResponse = {
-            ok: true,
-            json: async () => ({ items: mockRepositories }),
-        };
-
-        global.fetch.mockResolvedValueOnce(mockResponse);
-
-        const repository = await getRandomRepository('javascript');
-        expect(mockRepositories).toContain(repository);
+    afterEach(() => {
+        vi.restoreAllMocks();
     });
 
-    it('should throw an error when the API call fails', async () => {
-        const mockResponse = {
-            ok: false,
-            status: 500,
-        };
+    describe("successful cases", () => {
+        it("should return a random repository when API call succeeds", async () => {
+            const mockRepositories = createMockRepositories();
+            fetch.mockResolvedValueOnce(
+                createApiResponse(true, { items: mockRepositories }),
+            );
 
-        global.fetch.mockResolvedValueOnce(mockResponse);
+            const repository = await getRandomRepository("JavaScript");
 
-        await expect(getRandomRepository('javascript')).rejects.toThrow('HTTP error! status: 500');
+            expect(mockRepositories).toContain(repository);
+            expect(fetch).toHaveBeenCalledWith(
+                "https://api.github.com/search/repositories?q=language:JavaScript&sort=stars&order=desc",
+            );
+        });
+
+        it("should handle empty repository list", async () => {
+            fetch.mockResolvedValueOnce(createApiResponse(true, { items: [] }));
+
+            await expect(getRandomRepository("JavaScript")).rejects.toThrow(
+                "No repositories found",
+            );
+        });
     });
 
-    it('should throw an error when no repositories are found', async () => {
-        const mockResponse = {
-            ok: true,
-            json: async () => ({ items: [] }),
-        };
+    describe("error cases", () => {
+        it("should handle API errors", async () => {
+            fetch.mockResolvedValueOnce(createApiResponse(false, null, 404));
 
-        global.fetch.mockResolvedValueOnce(mockResponse);
+            await expect(getRandomRepository("JavaScript")).rejects.toThrow(
+                "HTTP error! status: 404",
+            );
+        });
 
-        await expect(getRandomRepository('javascript')).rejects.toThrow('No repositories found');
-    });
+        it("should handle network errors", async () => {
+            fetch.mockRejectedValueOnce(new Error("Network error"));
 
-    it('should log an error and rethrow it when an exception occurs', async () => {
-        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-        const mockError = new Error('Network error');
+            await expect(getRandomRepository("JavaScript")).rejects.toThrow(
+                "Network error",
+            );
+        });
 
-        global.fetch.mockRejectedValueOnce(mockError);
+        it("should handle invalid JSON", async () => {
+            fetch.mockResolvedValueOnce({
+                ok: true,
+                json: async () => {
+                    throw new Error("Invalid JSON");
+                },
+            });
 
-        await expect(getRandomRepository('javascript')).rejects.toThrow('Network error');
-        expect(consoleErrorSpy).toHaveBeenCalledWith('Error fetching repository:', mockError);
-
-        consoleErrorSpy.mockRestore();
+            await expect(getRandomRepository("JavaScript")).rejects.toThrow(
+                "Invalid JSON",
+            );
+        });
     });
 });
