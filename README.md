@@ -23,6 +23,10 @@ View the project page here: [Project Page](https://roadmap.sh/projects/github-ra
 - CSS
 - HTML
 
+## Images
+
+![screencapture-127-0-0-1-5500-index-html-2025-01-01-21_45_55 (1)](https://github.com/user-attachments/assets/986e90c4-dded-41c5-b314-e5dbabe822a7)
+
 ## Getting Started
 
 ### Prerequisites
