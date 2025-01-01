@@ -1,4 +1,8 @@
 export const updateRepositoryCard = (repository, selectedLanguage) => {
+    if (!repository || typeof repository !== "object") {
+        throw new Error("Invalid repository data");
+    }
+
     const repoCard = document.querySelector(".display-repository");
 
     if (!repoCard) {
@@ -20,10 +24,10 @@ export const updateRepositoryCard = (repository, selectedLanguage) => {
         return;
     }
 
-    h5.textContent = repository.full_name;
-    p.textContent = repository.description;
-    language.textContent = selectedLanguage;
-    stars.textContent = repository.stargazers_count;
-    forks.textContent = repository.forks_count;
-    issues.textContent = repository.open_issues_count;
+    h5.textContent = repository.full_name || "";
+    p.textContent = repository.description || "";
+    language.textContent = selectedLanguage || "";
+    stars.textContent = repository.stargazers_count?.toString() || "0";
+    forks.textContent = repository.forks_count?.toString() || "0";
+    issues.textContent = repository.open_issues_count?.toString() || "0";
 };
