@@ -18,7 +18,7 @@ test.describe("Github Random Repository", () => {
             );
         });
 
-        expect(options).toContain("Select a Language");
+        expect(options).toContain("All Languages");
         expect(options).toContain("JavaScript");
     });
 
