@@ -8,6 +8,16 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    services:
+      web:
+        image: node:14
+        ports:
+          - 5500:5500
+        options: >-
+          --health-cmd "curl -f http://localhost:5500 || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -17,6 +27,8 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Start server
+      run: npm start &
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v4
