@@ -6,6 +6,10 @@ This project is designed to introduce you to working with external APIs, handlin
 
 You can view the project here: [GitHub Random Repository](https://github-random-repository-one.vercel.app/)
 
+## Project Page
+
+View the project page here: [Project Page](https://roadmap.sh/projects/github-random-repo)
+
 ## Features
 
 - Fetch data from external APIs
